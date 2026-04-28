@@ -41,6 +41,11 @@ public class UsuarioService {
         return repositorio.findAll();
     }
 
+    public Usuario obtenerPorId(Long id) {
+        return repositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+    }
+
     public String login(String email, String password) {
         if (email == null || email.isBlank() || password == null || password.isBlank()) {
             throw new BadCredentialsException("Credenciales incorrectas");

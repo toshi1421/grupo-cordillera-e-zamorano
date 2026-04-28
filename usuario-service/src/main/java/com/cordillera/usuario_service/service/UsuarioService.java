@@ -1,0 +1,64 @@
+package com.cordillera.usuario_service.service;
+
+import com.cordillera.usuario_service.model.Usuario;
+import com.cordillera.usuario_service.repository.UsuarioRepository;
+import com.cordillera.usuario_service.config.JwtUtil;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UsuarioService {
+
+    private final UsuarioRepository repositorio;
+    private final JwtUtil jwtUtil;
+    private final BCryptPasswordEncoder encriptador;
+
+    public UsuarioService(UsuarioRepository repositorio, JwtUtil jwtUtil) {
+        this.repositorio = repositorio;
+        this.jwtUtil = jwtUtil;
+        this.encriptador = new BCryptPasswordEncoder();
+    }
+
+    public Usuario guardarUsuario(Usuario usuario) {
+        if (usuario.getEmail() == null || usuario.getEmail().isBlank()) {
+            throw new IllegalArgumentException("El email es obligatorio");
+        }
+        if (repositorio.existsByEmail(usuario.getEmail())) {
+            throw new IllegalArgumentException("El email ya está registrado");
+        }
+        usuario.setContrasena(encriptador.encode(usuario.getContrasena()));
+        if (usuario.getRol() == null) {
+            usuario.setRol("USER");
+        }
+        return repositorio.save(usuario);
+    }
+
+    public List<Usuario> obtenerUsuarios() {
+        return repositorio.findAll();
+    }
+
+    public String login(String email, String password) {
+        if (email == null || email.isBlank() || password == null || password.isBlank()) {
+            throw new BadCredentialsException("Credenciales incorrectas");
+        }
+        Usuario usuario = repositorio.findByEmail(email);
+        if (usuario == null || !encriptador.matches(password, usuario.getContrasena())) {
+            throw new BadCredentialsException("Credenciales incorrectas");
+        }
+        return jwtUtil.generarToken(usuario.getEmail(), usuario.getRol());
+    }
+
+    public Usuario actualizarRol(Long id, String rol) {
+        Optional<Usuario> opt = repositorio.findById(id);
+        if (opt.isEmpty()) {
+            throw new IllegalArgumentException("Usuario no encontrado");
+        }
+        Usuario usuario = opt.get();
+        usuario.setRol(rol);
+        return repositorio.save(usuario);
+    }
+}

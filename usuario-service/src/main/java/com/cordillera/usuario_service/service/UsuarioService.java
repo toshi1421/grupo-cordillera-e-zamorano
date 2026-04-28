@@ -17,10 +17,10 @@ public class UsuarioService {
     private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder encriptador;
 
-    public UsuarioService(UsuarioRepository repositorio, JwtUtil jwtUtil) {
+    public UsuarioService(UsuarioRepository repositorio, JwtUtil jwtUtil, BCryptPasswordEncoder encriptador) {
         this.repositorio = repositorio;
         this.jwtUtil = jwtUtil;
-        this.encriptador = new BCryptPasswordEncoder();
+        this.encriptador = encriptador;
     }
 
     public Usuario guardarUsuario(Usuario usuario) {
@@ -30,10 +30,10 @@ public class UsuarioService {
         if (repositorio.existsByEmail(usuario.getEmail())) {
             throw new IllegalArgumentException("El email ya está registrado");
         }
-        usuario.setContrasena(encriptador.encode(usuario.getContrasena()));
-        if (usuario.getRol() == null) {
+        if (usuario.getRol() == null || usuario.getRol().isBlank()) {
             usuario.setRol("USER");
         }
+        usuario.setContrasena(encriptador.encode(usuario.getContrasena()));
         return repositorio.save(usuario);
     }
 

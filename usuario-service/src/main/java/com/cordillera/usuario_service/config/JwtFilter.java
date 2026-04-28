@@ -28,18 +28,20 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            
-            if (jwtUtil.validarToken(token)) {
-                String email = jwtUtil.extraerEmail(token);
-                String rol = jwtUtil.extraerRol(token);
 
-                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + rol);
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            email, null, Collections.singletonList(authority));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
-                }
+            if (!jwtUtil.validarToken(token)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
+
+            String email = jwtUtil.extraerEmail(token);
+            String rol = jwtUtil.extraerRol(token);
+
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + rol);
+            UsernamePasswordAuthenticationToken authToken =
+                    new UsernamePasswordAuthenticationToken(email, null, Collections.singletonList(authority));
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
         }
         filterChain.doFilter(request, response);
     }

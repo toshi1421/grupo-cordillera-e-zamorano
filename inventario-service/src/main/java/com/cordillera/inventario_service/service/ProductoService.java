@@ -1,11 +1,11 @@
 package com.cordillera.inventario_service.service;
 
 import com.cordillera.inventario_service.dto.ProductoDTO;
-import com.cordillera.inventario_service.exception.StockInsuficienteException;
 import com.cordillera.inventario_service.model.Producto;
 import com.cordillera.inventario_service.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,12 +69,13 @@ public class ProductoService {
 		return false;
 	}
 
+	@Transactional
 	public void descontarStock(Long id, Integer cantidad) {
 		Producto producto = productoRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
 		if (producto.getCantidad() < cantidad) {
-			throw new StockInsuficienteException(producto.getNombre(), cantidad, producto.getCantidad());
+			throw new RuntimeException("Stock insuficiente para el producto: " + id);
 		}
 
 		producto.setCantidad(producto.getCantidad() - cantidad);

@@ -3,6 +3,7 @@ package com.cordillera.usuario_service.service;
 import com.cordillera.usuario_service.model.Usuario;
 import com.cordillera.usuario_service.repository.UsuarioRepository;
 import com.cordillera.usuario_service.config.JwtUtil;
+import com.cordillera.usuario_service.exception.UsuarioNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class UsuarioService {
 
     public Usuario obtenerPorId(Long id) {
         return repositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+                .orElseThrow(() -> new UsuarioNotFoundException(id));
     }
 
     public String login(String email, String password) {

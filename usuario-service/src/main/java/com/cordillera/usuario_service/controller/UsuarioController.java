@@ -6,6 +6,7 @@ import com.cordillera.usuario_service.model.Usuario;
 import com.cordillera.usuario_service.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,12 @@ public class UsuarioController {
     @GetMapping
     public List<Usuario> obtenerUsuarios() {
         return service.obtenerUsuarios();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) {
+        Usuario usuario = service.obtenerPorId(id);
+        return ResponseEntity.ok(usuario);
     }
 
     @PostMapping("/login")

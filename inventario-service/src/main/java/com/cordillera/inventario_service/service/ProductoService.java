@@ -1,6 +1,7 @@
 package com.cordillera.inventario_service.service;
 
 import com.cordillera.inventario_service.dto.ProductoDTO;
+import com.cordillera.inventario_service.exception.StockInsuficienteException;
 import com.cordillera.inventario_service.model.Producto;
 import com.cordillera.inventario_service.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,18 @@ public class ProductoService {
 			return true;
 		}
 		return false;
+	}
+
+	public void descontarStock(Long id, Integer cantidad) {
+		Producto producto = productoRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+		if (producto.getCantidad() < cantidad) {
+			throw new StockInsuficienteException(producto.getNombre(), cantidad, producto.getCantidad());
+		}
+
+		producto.setCantidad(producto.getCantidad() - cantidad);
+		productoRepository.save(producto);
 	}
 
 	private ProductoDTO convertirADTO(Producto producto) {

@@ -53,6 +53,12 @@ public class ProductoController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
+	@PutMapping("/{id}/descontar")
+	public ResponseEntity<String> descontarStock(@PathVariable Long id, @RequestParam Integer cantidad) {
+		productoService.descontarStock(id, cantidad);
+		return ResponseEntity.ok("Stock actualizado correctamente.");
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
 		boolean eliminado = productoService.eliminarProducto(id);

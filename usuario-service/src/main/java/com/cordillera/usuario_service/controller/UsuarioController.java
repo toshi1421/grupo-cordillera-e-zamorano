@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     private final UsuarioService service;
@@ -48,7 +48,7 @@ public class UsuarioController {
         return Map.of("mensaje", "Acceso permitido para GERENTE o ADMIN");
     }
 
-    @PutMapping("/{id}/rol")
+    @PutMapping("/api/usuarios/{id}/rol")
     public Usuario actualizarRol(@PathVariable Long id, @Valid @RequestBody RoleUpdateRequest request) {
         return service.actualizarRol(id, request.getRol());
     }

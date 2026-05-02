@@ -39,7 +39,7 @@ public class VentaService {
 
 
         String mensaje = solicitud.getIdProducto() + ":" + solicitud.getCantidad();
-        rabbitTemplate.convertAndSend(RabbitMQConfig.VENTA_QUEUE, mensaje);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, mensaje);
 
         return ventaGuardada;
     }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     private final UsuarioService service;
@@ -34,7 +34,12 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) {
         Usuario usuario = service.obtenerPorId(id);
-        return ResponseEntity.ok(usuario);
+        return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/api/autenticacion/registro")
+    public Usuario registrar(@Valid @RequestBody Usuario usuario) {
+        return service.guardarUsuario(usuario);
     }
 
     @PostMapping("/login")
@@ -43,12 +48,7 @@ public class UsuarioController {
         return Map.of("token", token);
     }
 
-    @GetMapping("/panel-gerente")
-    public Map<String, String> panelGerente() {
-        return Map.of("mensaje", "Acceso permitido para GERENTE o ADMIN");
-    }
-
-    @PutMapping("/api/usuarios/{id}/rol")
+    @PutMapping("/{id}/rol")
     public Usuario actualizarRol(@PathVariable Long id, @Valid @RequestBody RoleUpdateRequest request) {
         return service.actualizarRol(id, request.getRol());
     }

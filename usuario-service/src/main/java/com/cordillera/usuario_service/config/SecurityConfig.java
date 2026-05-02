@@ -31,13 +31,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/autenticacion/**").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}").permitAll() 
-                .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/usuarios/panel-gerente").hasAnyRole("GERENTE", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/usuarios/*/rol").hasRole("ADMIN")
+                .requestMatchers("/usuarios/api/autenticacion/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/usuarios/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/usuarios").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/usuarios/{id}/rol").hasRole("ADMIN")
                 .requestMatchers("/error").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

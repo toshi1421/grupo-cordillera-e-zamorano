@@ -38,4 +38,10 @@ public class VentaController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<Venta>> obtenerMisCompras(@PathVariable Long idUsuario) {
+        List<Venta> ventas = ventaService.obtenerVentasPorUsuario(idUsuario);
+        return ResponseEntity.ok(ventas);
+    }
 }

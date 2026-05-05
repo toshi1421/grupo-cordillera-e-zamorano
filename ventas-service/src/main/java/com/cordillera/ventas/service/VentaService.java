@@ -59,4 +59,8 @@ public class VentaService {
     public Optional<Venta> obtenerVentaPorId(Long id) {
         return ventaRepository.findById(id);
     }
+
+    public List<Venta> obtenerVentasPorUsuario(Long idUsuario) {
+        return ventaRepository.findByIdUsuario(idUsuario);
+    }
 }

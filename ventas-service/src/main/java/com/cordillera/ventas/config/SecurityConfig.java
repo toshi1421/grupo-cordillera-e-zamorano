@@ -28,6 +28,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/api/ventas/crear").authenticated() 
+                .requestMatchers(HttpMethod.GET, "/api/ventas/usuario/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/ventas/**").hasRole("ADMIN")   
                 .anyRequest().authenticated()
             )

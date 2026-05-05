@@ -1,5 +1,6 @@
 package com.cordillera.inventario_service.mq;
 
+import com.cordillera.inventario_service.config.RabbitMQConfig;
 import com.cordillera.inventario_service.service.ProductoService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ public class VentaListener {
     @Autowired
     private ProductoService productoService;
 
-    @RabbitListener(queues = "venta_stock_queue")
+    @RabbitListener(queues = RabbitMQConfig.QUEUE)
     public void procesarDescuentoStock(String mensaje) {
         try {
           

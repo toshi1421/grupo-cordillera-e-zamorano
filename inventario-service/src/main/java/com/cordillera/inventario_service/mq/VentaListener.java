@@ -3,10 +3,12 @@ package com.cordillera.inventario_service.mq;
 import com.cordillera.inventario_service.config.RabbitMQConfig;
 import com.cordillera.inventario_service.service.ProductoService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnProperty(name = "inventario.rabbitmq.enabled", havingValue = "true")
 public class VentaListener {
 
     @Autowired

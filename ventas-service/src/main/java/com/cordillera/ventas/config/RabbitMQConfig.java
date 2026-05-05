@@ -4,10 +4,12 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnProperty(prefix = "spring.rabbitmq.listener.simple", name = "auto-startup", havingValue = "true")
 public class RabbitMQConfig {
     public static final String VENTA_QUEUE = "venta_stock_queue";
     public static final String EXCHANGE = "venta_stock_exchange";

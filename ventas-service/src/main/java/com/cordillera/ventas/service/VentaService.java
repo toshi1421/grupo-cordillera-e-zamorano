@@ -9,6 +9,8 @@ import com.cordillera.ventas.dto.VentaSolicitud;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VentaService {
@@ -42,5 +44,13 @@ public class VentaService {
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, mensaje);
 
         return ventaGuardada;
+    }
+
+    public List<Venta> listarTodasLasVentas() {
+        return ventaRepository.findAll();
+    }
+
+    public Optional<Venta> obtenerVentaPorId(Long id) {
+        return ventaRepository.findById(id);
     }
 }

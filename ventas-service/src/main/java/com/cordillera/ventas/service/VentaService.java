@@ -43,7 +43,6 @@ public class VentaService {
 
         Venta ventaGuardada = ventaRepository.save(nuevaVenta);
 
-
         if (rabbitEnabled) {
             String mensaje = solicitud.getIdProducto() + ":" + solicitud.getCantidad();
             rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, mensaje);

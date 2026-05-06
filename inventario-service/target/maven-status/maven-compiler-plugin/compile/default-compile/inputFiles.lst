@@ -1,0 +1,10 @@
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\config\RabbitMQConfig.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\controller\ProductoController.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\dto\ProductoDTO.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\exception\GlobalExceptionHandler.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\exception\StockInsuficienteException.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\InventarioServiceApplication.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\model\Producto.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\mq\VentaListener.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\repository\ProductoRepository.java
+C:\Users\darly\OneDrive\Escritorio\Proyecto\inventario-service\src\main\java\com\cordillera\inventario_service\service\ProductoService.java

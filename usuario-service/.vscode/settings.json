@@ -1,0 +1,19 @@
+{
+  "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-21",
+  "java.project.sourcePaths": [
+    "src/main/java",
+    "src/test/java"
+  ],
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "C:\\Program Files\\Java\\jdk-21",
+      "default": true
+    },
+    {
+      "name": "JavaSE-17",
+      "path": "C:\\Program Files\\Java\\jdk-17"
+    }
+  ],
+  "java.compile.nullAnalysis.mode": "automatic"
+}

@@ -1,0 +1,6 @@
+com\cordillera\inventario_service\controller\ProductoController.class
+com\cordillera\inventario_service\dto\ProductoDTO.class
+com\cordillera\inventario_service\repository\ProductoRepository.class
+com\cordillera\inventario_service\service\ProductoService.class
+com\cordillera\inventario_service\InventarioServiceApplication.class
+com\cordillera\inventario_service\model\Producto.class

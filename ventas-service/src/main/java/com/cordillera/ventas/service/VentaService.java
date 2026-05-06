@@ -8,7 +8,10 @@ import com.cordillera.ventas.repository.VentaRepository;
 import com.cordillera.ventas.dto.VentaSolicitud;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VentaService {
@@ -25,6 +28,9 @@ public class VentaService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Value("${spring.rabbitmq.listener.simple.auto-startup:false}")
+    private boolean rabbitEnabled;
+
     public Venta procesarVenta(VentaSolicitud solicitud) {
         
         usuarioClient.obtenerUsuarioPorId(solicitud.getIdUsuario());
@@ -37,10 +43,23 @@ public class VentaService {
 
         Venta ventaGuardada = ventaRepository.save(nuevaVenta);
 
-
-        String mensaje = solicitud.getIdProducto() + ":" + solicitud.getCantidad();
-        rabbitTemplate.convertAndSend(RabbitMQConfig.VENTA_QUEUE, mensaje);
+        if (rabbitEnabled) {
+            String mensaje = solicitud.getIdProducto() + ":" + solicitud.getCantidad();
+            rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, mensaje);
+        }
 
         return ventaGuardada;
+    }
+
+    public List<Venta> listarTodasLasVentas() {
+        return ventaRepository.findAll();
+    }
+
+    public Optional<Venta> obtenerVentaPorId(Long id) {
+        return ventaRepository.findById(id);
+    }
+
+    public List<Venta> obtenerVentasPorUsuario(Long idUsuario) {
+        return ventaRepository.findByIdUsuario(idUsuario);
     }
 }

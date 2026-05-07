@@ -1,0 +1,137 @@
+:root {
+  --azul-oxford: #192338;
+  --azul-cadete: #1E2E4F;
+  --azul-yinmn: #31487A;
+  --azul-jordy: #8FB3E2;
+  --lavanda-web: #D9E1F1;
+  --blanco: #FFFFFF;
+}
+
+.login-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--lavanda-web);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-tarjeta {
+  background-color: var(--blanco);
+  padding: 45px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+}
+
+.login-encabezado {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.login-titulo {
+  color: var(--azul-oxford);
+  font-size: clamp(24px, 5vw, 30px);
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitulo {
+  color: var(--azul-yinmn);
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.login-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.grupo-entrada {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grupo-entrada label {
+  color: var(--azul-oxford);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+}
+
+.campo-entrada {
+  padding: 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--azul-jordy);
+  background-color: #f8faff;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.campo-entrada:focus {
+  border-color: var(--azul-yinmn);
+  box-shadow: 0 0 0 3px rgba(143, 179, 226, 0.3);
+}
+
+.boton-acceso {
+  background-color: var(--azul-oxford);
+  color: var(--blanco);
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.boton-acceso:hover {
+  background-color: var(--azul-cadete);
+}
+
+.boton-acceso:disabled {
+  background-color: var(--azul-jordy);
+  cursor: not-allowed;
+}
+
+.mensaje-error {
+  color: #d32f2f;
+  font-size: 13px;
+  text-align: center;
+  background-color: #ffebee;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.login-pie {
+  margin-top: 30px;
+  font-size: 13px;
+  color: var(--azul-medio);
+  text-align: center;
+  border-top: 1px solid var(--lavanda-web);
+  padding-top: 20px;
+}
+
+.enlace-soporte {
+  color: var(--azul-yinmn);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .login-tarjeta {
+    padding: 30px 20px;
+  }
+}
